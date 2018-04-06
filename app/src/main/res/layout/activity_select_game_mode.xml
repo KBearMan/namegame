@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/activity_select_game_mode_easy_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Easy Mode"
+        app:layout_constraintBottom_toTopOf="@+id/activity_select_game_mode_statistics_button"
+        app:layout_constraintEnd_toStartOf="@+id/activity_select_game_mode_normal_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_select_game_mode_text" />
+
+    <Button
+        android:id="@+id/activity_select_game_mode_normal_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Normal Mode"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_select_game_mode_easy_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activity_select_game_mode_easy_button" />
+
+    <Button
+        android:id="@+id/activity_select_game_mode_reverse_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reverse Mode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activity_select_game_mode_matt_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_select_game_mode_statistics_button" />
+
+    <Button
+        android:id="@+id/activity_select_game_mode_matt_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mat(t) Mode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activity_select_game_mode_reverse_button"
+        app:layout_constraintTop_toTopOf="@+id/activity_select_game_mode_reverse_button" />
+
+    <ImageButton
+        android:id="@+id/activity_select_game_mode_statistics_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_select_game_mode_reverse_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_select_game_mode_easy_button"
+        app:srcCompat="@android:drawable/ic_menu_info_details" />
+
+    <TextView
+        android:id="@+id/activity_select_game_mode_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Please Select a Game Mode:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_select_game_mode_easy_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
