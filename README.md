@@ -5,7 +5,11 @@ the user a list of names or faces and then a single instance of the other. The u
 from the list. The idea is that the code will make a network call to retrieve the information at runtime and not go off
 of a prepopulated database. 
 ## Libraries Used ##
-* GSON
-* Retrofit
-* Dagger2
-* Butterknife
+*GSON
+*Retrofit
+*Dagger2
+*Butterknife
+*Glide
+*RxaJava
+*Architecture Compontents ViewModel and LiveData
+
