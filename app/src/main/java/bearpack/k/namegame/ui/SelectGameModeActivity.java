@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import bearpack.k.namegame.R;
+import bearpack.k.namegame.db.SQLiteHelper;
 import bearpack.k.namegame.viewmodels.GameModeViewModel;
 
 import java.util.Map;
@@ -34,7 +35,7 @@ public class SelectGameModeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_game_mode);
         ButterKnife.bind(this);
         gameModeVM = ViewModelProviders.of(this).get(GameModeViewModel.class);
-
+        gameModeVM.dbHelper = new SQLiteHelper(this);
         //Setup ViewModel Interactions, mainly the callback to start the game and each button click
         gameModeVM.setClickListener((activity,bundle) -> {
             Intent intent = new Intent(this,activity);

@@ -20,7 +20,7 @@ import javax.inject.Inject;
 public class GameModeViewModel extends ViewModel
 {
     private static final String TAG = GameModeViewModel.class.getSimpleName();
-    @Inject SQLiteHelper dbHelper;
+    public SQLiteHelper dbHelper;
     GameModeClickListener listener;
 
     public void setClickListener(GameModeClickListener listener)
