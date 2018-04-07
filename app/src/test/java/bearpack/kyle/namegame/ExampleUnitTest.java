@@ -1,4 +1,4 @@
-package bearpack.kyle.namegame;
+package bearpack.k.namegame;
 
 import org.junit.Test;
 
