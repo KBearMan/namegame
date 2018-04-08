@@ -1,4 +1,4 @@
-package bearpack.k.namegame.network.api2;
+package bearpack.k.namegame.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

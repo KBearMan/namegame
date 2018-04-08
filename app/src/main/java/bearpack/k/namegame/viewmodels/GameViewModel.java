@@ -7,10 +7,15 @@ import java.util.List;
 import java.util.Random;
 
 import bearpack.k.namegame.core.ListRandomizer;
-import bearpack.k.namegame.network.api2.ApiService;
-import bearpack.k.namegame.network.api2.ApiUtil;
-import bearpack.k.namegame.network.api2.Profile;
-import bearpack.k.namegame.network.api2.RetrofitClient;
+import bearpack.k.namegame.network.api.ApiService;
+import bearpack.k.namegame.network.api.ApiUtil;
+import bearpack.k.namegame.model.Profile;
+import bearpack.k.namegame.network.api.RetrofitClient;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,17 +32,35 @@ public class GameViewModel extends ViewModel
     public GameViewModel()
     {
         ApiService mService = ApiUtil.getApiService();
-        mService.getProfiles().enqueue(new Callback<List<Profile>>() {
-            @Override
-            public void onResponse(Call<List<Profile>> call, Response<List<Profile>> response) {
-                mDataList.addAll(response.body());
-            }
+        mService.getProfiles()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<List<Profile>>()
+                                {
+                                    @Override
+                                    public void onSubscribe(Disposable d)
+                                    {
 
-            @Override
-            public void onFailure(Call<List<Profile>> call, Throwable t) {
+                                    }
 
-            }
-        });
+                                    @Override
+                                    public void onNext(List<Profile> profiles)
+                                    {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e)
+                                    {
+
+                                    }
+
+                                    @Override
+                                    public void onComplete()
+                                    {
+
+                                    }
+                                });
     }
 
     public GameData getGameSetup()

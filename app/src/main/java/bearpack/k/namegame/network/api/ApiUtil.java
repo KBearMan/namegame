@@ -1,4 +1,4 @@
-package bearpack.k.namegame.network.api2;
+package bearpack.k.namegame.network.api;
 
 public class ApiUtil
 {
