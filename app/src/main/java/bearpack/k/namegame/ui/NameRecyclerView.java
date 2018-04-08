@@ -8,7 +8,7 @@ import android.view.ViewGroup;
  * Created by A on 4/3/2018.
  */
 
-public class EmployeeNameRecyclerView extends RecyclerView.Adapter<EmployeeNameRecyclerView.EmployeeViewHolder>{
+public class NameRecyclerView extends RecyclerView.Adapter<NameRecyclerView.EmployeeViewHolder>{
 
     @Override
     public EmployeeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
