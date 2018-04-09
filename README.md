@@ -7,9 +7,7 @@ of a prepopulated database.
 ## Libraries Used ##
 * GSON
 * Retrofit
-* Dagger2
 * Butterknife
-* Glide
-* RxaJava
+* Ion
+* RxJava
 * Architecture Compontents ViewModel and LiveData
-
