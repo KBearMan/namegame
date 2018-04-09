@@ -10,30 +10,26 @@ import bearpack.k.namegame.core.ListRandomizer;
 import bearpack.k.namegame.network.api.ApiService;
 import bearpack.k.namegame.network.api.ApiUtil;
 import bearpack.k.namegame.model.Profile;
-import bearpack.k.namegame.network.api.RetrofitClient;
+import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
+import io.reactivex.subjects.PublishSubject;
 /**
  * Created by A on 4/3/2018.
  */
 
 public class GameViewModel extends ViewModel
 {
-    RetrofitClient client;
     ListRandomizer randomizer = new ListRandomizer(new Random());
     ArrayList<Profile> mDataList = new ArrayList<>();
+    GameData currentGameData;
+    PublishSubject<GameData> gameDataStream;
     public GameViewModel()
     {
         ApiService mService = ApiUtil.getApiService();
-        mService.getProfiles()
-                                .subscribeOn(Schedulers.io())
+        mService.getProfiles().subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(new Observer<List<Profile>>()
                                 {
@@ -46,7 +42,7 @@ public class GameViewModel extends ViewModel
                                     @Override
                                     public void onNext(List<Profile> profiles)
                                     {
-
+                                        mDataList.addAll(profiles);
                                     }
 
                                     @Override
@@ -58,16 +54,24 @@ public class GameViewModel extends ViewModel
                                     @Override
                                     public void onComplete()
                                     {
-
+                                        getNewGameData();
                                     }
                                 });
+        gameDataStream = PublishSubject.create();
     }
 
-    public GameData getGameSetup()
+    public Observable<GameData> getGameDataStream()
+    {
+        return gameDataStream;
+    }
+
+    public void getNewGameData()
     {
         GameData gameSetup = new GameData();
         gameSetup.dataList = randomizer.pickN(mDataList,6);
         gameSetup.selectedProfile = randomizer.pickOne(gameSetup.dataList);
-        return gameSetup;
+        currentGameData = gameSetup;
+        gameDataStream.onNext(currentGameData);
     }
+
 }

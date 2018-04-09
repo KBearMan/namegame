@@ -12,6 +12,8 @@ import bearpack.k.namegame.viewmodels.GameData;
 import bearpack.k.namegame.viewmodels.GameViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class NameGameActivity extends AppCompatActivity {
 
@@ -20,7 +22,34 @@ public class NameGameActivity extends AppCompatActivity {
     GameViewModel gameVM;
     PortraitRecyclerViewAdapter mRecyclerAdapter;
     GameData currentGameData;
+    Observer<GameData> gameDataObserver = new Observer<GameData>()
+    {
+        @Override
+        public void onSubscribe(Disposable d)
+        {
 
+        }
+
+        @Override
+        public void onNext(GameData gameData)
+        {
+            currentGameData = gameData;
+            mNameTextView.setText(currentGameData.selectedProfile.getFirstName() + " " +currentGameData.selectedProfile.getLastName());
+            mRecyclerAdapter.setListItems(currentGameData.dataList);
+        }
+
+        @Override
+        public void onError(Throwable e)
+        {
+
+        }
+
+        @Override
+        public void onComplete()
+        {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +57,10 @@ public class NameGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_screen_normal);
         ButterKnife.bind(this);
         gameVM = ViewModelProviders.of(this).get(GameViewModel.class);
-        mRecyclerAdapter = new PortraitRecyclerViewAdapter();
+        mRecyclerAdapter = new PortraitRecyclerViewAdapter(this);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         mRecyclerView.setAdapter(mRecyclerAdapter);
-        currentGameData = gameVM.getGameSetup();
-        mRecyclerAdapter.setListItems(currentGameData.dataList);
-        mNameTextView.setText(currentGameData.selectedProfile.getFirstName() + " " +currentGameData.selectedProfile.getLastName());
-
+        gameVM.getGameDataStream().subscribe(gameDataObserver);
     }
 
 

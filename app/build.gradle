@@ -9,7 +9,7 @@ android {
     compileSdkVersion 27
     buildToolsVersion "$project.buildToolsVersion"
     defaultConfig {
-        applicationId "com.example.a.willowtreenamegamefromscratch"
+        applicationId "bearpack.k.namegame"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
@@ -59,9 +59,15 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
+    //Ion
+    compile 'com.koushikdutta.ion:ion:2.+'
+
+    //Picasso
+//    implementation 'com.squareup.picasso:picasso:2.71828'
+
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.6.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+//    implementation 'com.github.bumptech.glide:glide:4.6.1'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

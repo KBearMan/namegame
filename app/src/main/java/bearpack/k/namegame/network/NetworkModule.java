@@ -14,8 +14,6 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import bearpack.k.namegame.BuildConfig;
-import bearpack.k.namegame.network.api.NameGameApi;
-import bearpack.k.namegame.network.api.ProfilesRepository;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -67,21 +65,21 @@ public class NetworkModule {
                 .build();
     }
 
-    @Provides @NonNull @Singleton
-    public NameGameApi provideApi(@NonNull Gson gson, @NonNull OkHttpClient client, @NonNull HttpUrl url) {
-        return new Retrofit.Builder()
-                .client(client)
-                .baseUrl(url)
-//                .addConverterFactory(GsonConverterFactory.create(gson))
-                .validateEagerly(BuildConfig.DEBUG)
-                .build()
-                .create(NameGameApi.class);
-    }
-
-    @Provides @NonNull @Singleton
-    public ProfilesRepository providePersonRepository(@NonNull NameGameApi api) {
-        return new ProfilesRepository(api);
-    }
+//    @Provides @NonNull @Singleton
+//    public NameGameApi provideApi(@NonNull Gson gson, @NonNull OkHttpClient client, @NonNull HttpUrl url) {
+//        return new Retrofit.Builder()
+//                .client(client)
+//                .baseUrl(url)
+////                .addConverterFactory(GsonConverterFactory.create(gson))
+//                .validateEagerly(BuildConfig.DEBUG)
+//                .build()
+//                .create(NameGameApi.class);
+//    }
+//
+//    @Provides @NonNull @Singleton
+//    public ProfilesRepository providePersonRepository(@NonNull NameGameApi api) {
+//        return new ProfilesRepository(api);
+//    }
 
 //    @Provides @NonNull @Singleton
 //    public Picasso providePicasso(@NonNull Context context, @NonNull OkHttpClient client) {
