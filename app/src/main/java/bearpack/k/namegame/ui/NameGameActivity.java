@@ -1,6 +1,7 @@
 package bearpack.k.namegame.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -58,7 +59,14 @@ public class NameGameActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         gameVM = ViewModelProviders.of(this).get(GameViewModel.class);
         mRecyclerAdapter = new PortraitRecyclerViewAdapter(this);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        }
+        else
+        {
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        }
         mRecyclerView.setAdapter(mRecyclerAdapter);
         gameVM.getGameDataStream().subscribe(gameDataObserver);
     }

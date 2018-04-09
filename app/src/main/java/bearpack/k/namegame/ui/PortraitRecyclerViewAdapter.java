@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 
-import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,22 +46,12 @@ public class PortraitRecyclerViewAdapter extends RecyclerView.Adapter<PortraitRe
     {
         Profile profile = mDataset.get(position);
 
-        Ion.with(context)
+        Picasso.get()
                 .load("http:".concat(profile.getHeadshot().getUrl()))
-                //.load(profile.getHeadshot().getUrl())
-                .withBitmap()
-                .animateLoad(R.anim.rotation)
-                .placeholder(R.drawable.loading)
+                .fit()
+                .placeholder(R.drawable.rotation)
                 .error(R.drawable.error)
-                .intoImageView(holder.portrait);
-
-//        Picasso.get()
-//                .load("http:".concat(profile.getHeadshot().getUrl()))
-//                .resize(75,75)
-//                .fit()
-//                .placeholder(R.drawable.loading)
-//                .error(R.drawable.error)
-//                .into(holder.portrait);
+                .into(holder.portrait);
     }
 
     @Override
