@@ -86,6 +86,7 @@ public class SQLiteHelper extends SQLiteOpenHelper
     {
 
         Cursor results = db.rawQuery("select avg(" + COL3 + ") from "+ TABLE_NAME, null);
+        results.moveToFirst();
         float valueToReturn = 0;
         try
         {
@@ -114,6 +115,7 @@ public class SQLiteHelper extends SQLiteOpenHelper
     {
 
         Cursor results = db.rawQuery("select min(" + COL3 + ") from "+ TABLE_NAME , null);
+        results.moveToFirst();
         float valueToReturn = 0;
         try
         {
@@ -130,6 +132,7 @@ public class SQLiteHelper extends SQLiteOpenHelper
     {
 
         Cursor results = db.rawQuery("select max(" + COL3 + ") from "+ TABLE_NAME, null);
+        results.moveToFirst();
         float valueToReturn = 0;
         try
         {

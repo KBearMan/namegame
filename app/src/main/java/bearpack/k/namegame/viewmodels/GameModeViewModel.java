@@ -1,6 +1,7 @@
 package bearpack.k.namegame.viewmodels;
 
 import android.arch.lifecycle.ViewModel;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -42,9 +43,9 @@ public class GameModeViewModel extends ViewModel
             statMap.put("Total Guesses", String.valueOf(dbHelper.getAllAnswers().size()));
             statMap.put("Correct Guesses", String.valueOf(dbHelper.getCorrectAnswerCount()));
             statMap.put("Incorrect Guesses", String.valueOf(dbHelper.getIncorrectAnswerCount()));
-            statMap.put("Shortest Guess Time", String.valueOf(dbHelper.getShortestTime()));
-            statMap.put("Average Guess Time", String.valueOf(dbHelper.getAverageTime()));
-            statMap.put("Longest Guess Time", String.valueOf(dbHelper.getLongestTime()));
+            statMap.put("Shortest Guess Time", String.format("%.2f",dbHelper.getShortestTime()) + " Seconds");
+            statMap.put("Average Guess Time", String.format("%.2f",dbHelper.getAverageTime()) + " Seconds");
+            statMap.put("Longest Guess Time", String.format("%.2f",dbHelper.getLongestTime()) + " Seconds");
         }
         catch(NullPointerException e)
         {

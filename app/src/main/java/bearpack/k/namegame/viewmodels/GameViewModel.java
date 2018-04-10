@@ -11,6 +11,7 @@ import bearpack.k.namegame.model.GameData;
 import bearpack.k.namegame.network.api.ApiService;
 import bearpack.k.namegame.network.api.ApiUtil;
 import bearpack.k.namegame.model.Profile;
+import bearpack.k.namegame.stats.StatTracker;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,6 +28,7 @@ public class GameViewModel extends ViewModel
     ArrayList<Profile> mDataList = new ArrayList<>();
     GameData currentGameData;
     PublishSubject<GameData> gameDataStream;
+    StatTracker statTracker;
 
     public void setListener(GameResultsListener listener)
     {
@@ -40,6 +42,10 @@ public class GameViewModel extends ViewModel
         return currentGameData;
     }
 
+    public void setStatTracker(StatTracker tracker)
+    {
+        statTracker = tracker;
+    }
 
     public interface GameResultsListener
     {
@@ -78,6 +84,32 @@ public class GameViewModel extends ViewModel
                                     }
                                 });
         gameDataStream = PublishSubject.create();
+        gameDataStream.subscribe(new Observer<GameData>()
+        {
+            @Override
+            public void onSubscribe(Disposable d)
+            {
+
+            }
+
+            @Override
+            public void onNext(GameData gameData)
+            {
+                statTracker.startRound();
+            }
+
+            @Override
+            public void onError(Throwable e)
+            {
+
+            }
+
+            @Override
+            public void onComplete()
+            {
+
+            }
+        });
     }
 
     public Observable<GameData> getGameDataStream()
@@ -96,7 +128,9 @@ public class GameViewModel extends ViewModel
 
     public void profileSelected(Profile profile)
     {
-        listener.answerResult(currentGameData.selectedProfile.getId().equals(profile.getId()));
+        boolean answer = currentGameData.selectedProfile.getId().equals(profile.getId());
+        statTracker.endRound(answer);
+        listener.answerResult(answer);
     }
 
 }

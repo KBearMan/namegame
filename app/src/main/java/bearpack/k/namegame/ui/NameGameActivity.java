@@ -15,6 +15,7 @@ import android.widget.TextView;
 import bearpack.k.namegame.R;
 import bearpack.k.namegame.model.GameData;
 import bearpack.k.namegame.model.Profile;
+import bearpack.k.namegame.stats.StatTracker;
 import bearpack.k.namegame.viewmodels.GameViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -102,7 +103,7 @@ public class NameGameActivity extends AppCompatActivity {
 
         gameVM = ViewModelProviders.of(this).get(GameViewModel.class);
         gameVM.setListener(listener);
-
+        gameVM.setStatTracker(StatTracker.getInstance(this));
         mRecyclerAdapter = new PortraitRecyclerViewAdapter(this,mPortraitListener );
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
