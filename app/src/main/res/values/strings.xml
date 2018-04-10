@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">NameGame</string>
+    <string name="incorrect_answer_dialog_message">I\'m sorry you\'ve selected the wrong choice!</string>
+    <string name="correct_answer_dialog_message">You\'ve selected the right choice!</string>
+    <string name="name_game_dialog_answer_title">Name Game Results</string>
 </resources>

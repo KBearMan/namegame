@@ -1,19 +1,16 @@
 package bearpack.k.namegame.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import bearpack.k.namegame.R;
-import bearpack.k.namegame.viewmodels.GameData;
+import bearpack.k.namegame.model.GameData;
 import bearpack.k.namegame.viewmodels.GameViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;

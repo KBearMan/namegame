@@ -1,4 +1,4 @@
-package bearpack.k.namegame.viewmodels;
+package bearpack.k.namegame.model;
 
 import java.util.List;
 

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import bearpack.k.namegame.core.ListRandomizer;
+import bearpack.k.namegame.model.GameData;
 import bearpack.k.namegame.network.api.ApiService;
 import bearpack.k.namegame.network.api.ApiUtil;
 import bearpack.k.namegame.model.Profile;
@@ -26,6 +27,25 @@ public class GameViewModel extends ViewModel
     ArrayList<Profile> mDataList = new ArrayList<>();
     GameData currentGameData;
     PublishSubject<GameData> gameDataStream;
+
+    public void setListener(GameResultsListener listener)
+    {
+        this.listener = listener;
+    }
+
+    GameResultsListener listener;
+
+    public GameData getCurrentGameData()
+    {
+        return currentGameData;
+    }
+
+
+    public interface GameResultsListener
+    {
+        void answerResult(boolean correctAnswerSelected);
+    }
+
     public GameViewModel()
     {
         ApiService mService = ApiUtil.getApiService();
@@ -72,6 +92,11 @@ public class GameViewModel extends ViewModel
         gameSetup.selectedProfile = randomizer.pickOne(gameSetup.dataList);
         currentGameData = gameSetup;
         gameDataStream.onNext(currentGameData);
+    }
+
+    public void profileSelected(Profile profile)
+    {
+        listener.answerResult(currentGameData.selectedProfile.getId().equals(profile.getId()));
     }
 
 }

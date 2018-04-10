@@ -2,9 +2,11 @@ package bearpack.k.namegame.ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.test.ProviderTestCase2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 
@@ -26,10 +28,17 @@ public class PortraitRecyclerViewAdapter extends RecyclerView.Adapter<PortraitRe
 
     List<Profile> mDataset = new ArrayList<>();
     Context context;
+    OnPortraitClickedListener mListener;
 
-    public PortraitRecyclerViewAdapter(Context context)
+     public interface OnPortraitClickedListener
+     {
+         public void onItemClicked(Profile clickedProfile);
+     }
+
+    public PortraitRecyclerViewAdapter(Context context, OnPortraitClickedListener listener)
     {
         this.context = context;
+        this.mListener = listener;
     }
 
     @Override
@@ -46,12 +55,31 @@ public class PortraitRecyclerViewAdapter extends RecyclerView.Adapter<PortraitRe
     {
         Profile profile = mDataset.get(position);
 
-        Picasso.get()
-                .load("http:".concat(profile.getHeadshot().getUrl()))
-                .fit()
-                .placeholder(R.drawable.rotation)
-                .error(R.drawable.error)
-                .into(holder.portrait);
+        try
+        {
+            Picasso.get()
+                    .load("http:".concat(profile.getHeadshot().getUrl()))
+                    .fit()
+                    .placeholder(R.drawable.rotation)
+                    .error(R.drawable.error)
+                    .into(holder.portrait);
+        }
+        catch(NullPointerException e)
+        {
+            Picasso.get()
+                    .load(R.drawable.error)
+                    .fit()
+                    .into(holder.portrait);
+        }
+        holder.profile = profile;
+        holder.portrait.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mListener.onItemClicked(holder.profile);
+            }
+        });
     }
 
     @Override
@@ -68,6 +96,8 @@ public class PortraitRecyclerViewAdapter extends RecyclerView.Adapter<PortraitRe
     class PortraitViewHolder extends RecyclerView.ViewHolder
     {
         @BindView(R.id.imageView) ImageView portrait;
+        Profile profile;
+
         public PortraitViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
