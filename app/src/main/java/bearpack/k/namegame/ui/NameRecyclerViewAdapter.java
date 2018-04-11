@@ -16,17 +16,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by A on 4/3/2018.
+ * Created by KBearMan on 4/3/2018.
  */
 
 public class NameRecyclerViewAdapter extends RecyclerView.Adapter<NameRecyclerViewAdapter.NameViewHolder>{
 
     List<Profile> mDataset = new ArrayList<>();
     Context context;
+    OnNameClickedListener mListener;
 
-    public NameRecyclerViewAdapter(Context context)
+    public interface OnNameClickedListener
+    {
+        public void onItemClicked(Profile clickedProfile);
+    }
+
+    public NameRecyclerViewAdapter(Context context, OnNameClickedListener listener)
     {
         this.context = context;
+        this.mListener = listener;
     }
 
 
@@ -43,7 +50,16 @@ public class NameRecyclerViewAdapter extends RecyclerView.Adapter<NameRecyclerVi
     public void onBindViewHolder(NameViewHolder holder, int position)
     {
         Profile profile = mDataset.get(position);
+        holder.profile = profile;
         holder.name.setText(profile.getFirstName() + " " + profile.getLastName());
+        holder.name.setOnClickListener(new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            mListener.onItemClicked(holder.profile);
+        }
+    });
     }
 
     @Override
@@ -57,9 +73,16 @@ public class NameRecyclerViewAdapter extends RecyclerView.Adapter<NameRecyclerVi
         notifyDataSetChanged();
     }
 
+    public void removeItem(int position)
+    {
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position,mDataset.size());
+    }
+
     class NameViewHolder extends RecyclerView.ViewHolder
     {
         @BindView(R.id.textView) TextView name;
+        Profile profile;
         public NameViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);

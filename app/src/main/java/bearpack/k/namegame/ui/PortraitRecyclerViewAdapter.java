@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by A on 4/3/2018.
+ * Created by KBearMan on 4/3/2018.
  */
 
 public class PortraitRecyclerViewAdapter extends RecyclerView.Adapter<PortraitRecyclerViewAdapter.PortraitViewHolder>{
@@ -30,7 +30,7 @@ public class PortraitRecyclerViewAdapter extends RecyclerView.Adapter<PortraitRe
     Context context;
     OnPortraitClickedListener mListener;
 
-     public interface OnPortraitClickedListener
+    public interface OnPortraitClickedListener
      {
          public void onItemClicked(Profile clickedProfile);
      }
@@ -91,6 +91,13 @@ public class PortraitRecyclerViewAdapter extends RecyclerView.Adapter<PortraitRe
     {
         mDataset = list;
         notifyDataSetChanged();
+    }
+
+
+    public void removeItem(int position)
+    {
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position,mDataset.size());
     }
 
     class PortraitViewHolder extends RecyclerView.ViewHolder

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import bearpack.k.namegame.db.SQLiteHelper;
+import bearpack.k.namegame.model.GameMode;
 import bearpack.k.namegame.ui.NameGameActivity;
 import bearpack.k.namegame.ui.NameGameReverseActivity;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 /**
- * Created by A on 4/3/2018.
+ * Created by KBearMan on 4/3/2018.
  */
 
 public class GameModeViewModel extends ViewModel
@@ -33,7 +34,6 @@ public class GameModeViewModel extends ViewModel
     {
         void startGameActivity(Class activityToStart,Bundle bundle);
     }
-
 
     public Map<String,String> getPlayStats()
     {
@@ -60,23 +60,26 @@ public class GameModeViewModel extends ViewModel
     public void normalModeClicked()
     {
         Bundle bundle = new Bundle();
+        bundle.putSerializable("GameMode", GameMode.Normal);
         listener.startGameActivity(NameGameActivity.class,bundle);
     }
     public void easyModeClicked()
     {
         Bundle bundle = new Bundle();
+        bundle.putSerializable("GameMode", GameMode.Easy);
         listener.startGameActivity(NameGameActivity.class,bundle);
     }
     public void reverseModeClicked()
     {
         Bundle bundle = new Bundle();
+        bundle.putSerializable("GameMode", GameMode.Normal);
         listener.startGameActivity(NameGameReverseActivity.class,bundle);
     }
     public void mattModeClicked()
     {
         Bundle bundle = new Bundle();
+        bundle.putSerializable("GameMode", GameMode.Matt);
         listener.startGameActivity(NameGameActivity.class,bundle);
     }
-
 
 }

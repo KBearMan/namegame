@@ -84,6 +84,12 @@ public class NameGameActivity extends AppCompatActivity {
                 }
             });
         }
+
+        @Override
+        public void personRemoved(int position)
+        {
+            runOnUiThread(() -> mRecyclerAdapter.removeItem(position));
+        }
     };
 
     PortraitRecyclerViewAdapter.OnPortraitClickedListener mPortraitListener = new PortraitRecyclerViewAdapter.OnPortraitClickedListener()
@@ -102,6 +108,7 @@ public class NameGameActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         gameVM = ViewModelProviders.of(this).get(GameViewModel.class);
+        gameVM.setGameMode(getIntent().getBundleExtra("gameModeBundle").getSerializable("GameMode"));
         gameVM.setListener(listener);
         gameVM.setStatTracker(StatTracker.getInstance(this));
         mRecyclerAdapter = new PortraitRecyclerViewAdapter(this,mPortraitListener );

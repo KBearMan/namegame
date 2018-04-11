@@ -39,7 +39,7 @@ public class SelectGameModeActivity extends AppCompatActivity {
         //Setup ViewModel Interactions, mainly the callback to start the game and each button click
         gameModeVM.setClickListener((activity,bundle) -> {
             Intent intent = new Intent(this,activity);
-            intent.putExtra("gameMode",bundle);
+            intent.putExtra("gameModeBundle",bundle);
             startActivity(intent);
 
         });
