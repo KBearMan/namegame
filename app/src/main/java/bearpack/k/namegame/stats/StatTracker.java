@@ -40,6 +40,10 @@ public class StatTracker
 
     public void endRound(boolean success)
     {
+        if(currentRoundStartTime == -1L)
+        {
+            return;
+        }
         long endTime = System.currentTimeMillis();
         float roundDuration = (float) ((endTime - currentRoundStartTime)/1000.0);
         currentRoundStartTime = -1L;

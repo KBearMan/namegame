@@ -41,24 +41,6 @@ public class GameViewModel extends ViewModel
     private GameResultsListener listener;
 
     private Timer easyModeTimer = new Timer();
-    private TimerTask easyModeListDeleterTask = new TimerTask()
-    {
-        @Override
-        public void run()
-        {
-            Random random = new Random();
-            int answerLocation = currentGameData.dataList.indexOf(currentGameData.selectedProfile);
-            int deletion = answerLocation;
-
-            while(deletion == answerLocation)
-            {
-                deletion = random.nextInt(currentGameData.dataList.size() - 1);
-            }
-            currentGameData.dataList.remove(deletion);
-            listener.personRemoved(deletion);
-
-        }
-    };
 
 
     public interface GameResultsListener
@@ -130,6 +112,8 @@ public class GameViewModel extends ViewModel
                     }
                     });
 
+
+
     }
 
     public GameData getCurrentGameData()
@@ -185,16 +169,39 @@ public class GameViewModel extends ViewModel
     private void startGame()
     {
         statTracker.startRound();
-        easyModeTimer.purge();
-        easyModeTimer.schedule(easyModeListDeleterTask,0,3000);
+        if(gameMode == GameMode.Easy)
+        {
+            easyModeTimer = new Timer();
+            TimerTask easyModeListDeleterTask = new TimerTask()
+            {
+                @Override
+                public void run()
+                {
+                    if(currentGameData.dataList.size() > 1)
+                    {
+                        Random random = new Random();
+                        int answerLocation = currentGameData.dataList.indexOf(currentGameData.selectedProfile);
+                        int deletion = answerLocation;
+
+                        while (deletion == answerLocation)
+                        {
+                            deletion = random.nextInt(currentGameData.dataList.size() - 1);
+                        }
+                        currentGameData.dataList.remove(deletion);
+                        listener.personRemoved(deletion);
+                    }
+                }
+            };
+            easyModeTimer.schedule(easyModeListDeleterTask, easyModeTimeOut, easyModeTimeOut);
+        }
     }
 
-    public void profileSelected(Profile profile)
+    public void endGame(Profile profile)
     {
         boolean answer = currentGameData.selectedProfile.getId().equals(profile.getId());
         statTracker.endRound(answer);
         listener.answerResult(answer);
-        easyModeTimer.purge();
+        easyModeTimer.cancel();
     }
 
 }

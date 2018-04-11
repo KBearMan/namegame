@@ -99,7 +99,7 @@ public class NameGameReverseActivity extends AppCompatActivity {
         @Override
         public void onItemClicked(Profile clickedProfile)
         {
-            gameVM.profileSelected(clickedProfile);
+            gameVM.endGame(clickedProfile);
         }
     };
 

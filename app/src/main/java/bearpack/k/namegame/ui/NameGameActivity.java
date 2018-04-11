@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
 
 import bearpack.k.namegame.R;
@@ -97,7 +95,7 @@ public class NameGameActivity extends AppCompatActivity {
         @Override
         public void onItemClicked(Profile clickedProfile)
         {
-            gameVM.profileSelected(clickedProfile);
+            gameVM.endGame(clickedProfile);
         }
     };
 
